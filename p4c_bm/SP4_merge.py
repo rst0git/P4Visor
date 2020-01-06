@@ -6,20 +6,18 @@
 # Email:  zeepean@gmail.com
 #
 
-import p4_hlir.hlir
+import os
 import sys
 import copy
-from pprint import pprint
 import json
-from collections import defaultdict
-from p4_hlir.hlir.dependencies import *
+from pprint import pprint
+
+from collections import defaultdict, OrderedDict
+
+import p4_hlir.hlir
 import p4_hlir.graphs.hlir_info as info
 import p4_hlir.hlir.p4_imperatives as p4_imperatives
-
-from collections import OrderedDict
-
-import os
-from collections import defaultdict
+from p4_hlir.hlir.dependencies import *
 
 class Dependency:
     CONTROL_FLOW = 0
