@@ -12,38 +12,38 @@
 
 header_type shadow_tag_t {
     fields {
-        shadow_id : 16;
-        etherType : 16;
+        shadow_id: 16;
+        etherType: 16;
     }
 }
 
 header_type shadow_metadata_t {
     fields {
-        shadow_bit : 16; // the flag to mark packets status: shadow status
-        recirculate_status : 8;
-        meta_t : 16; // A-B Testing: shadow program meta
-        meta_p: 16; // A-B Testing: real jprogram meta
+        shadow_bit: 16; // the flag to mark packets status: shadow status
+        recirculate_status: 8;
+        meta_t: 16; // A-B Testing: shadow program meta
+        meta_p: 16; // A-B Testing: real program meta
     }
 }
 
 
 header_type intrinsic_metadata_t {
     fields {
-        mcast_grp : 4;
-        egress_rid : 4;
-        mcast_hash : 16;
-        lf_field_list : 32;
-        resubmit_flag : 16;
-        recirculate_flag : 8;
+        mcast_grp: 4;
+        egress_rid: 4;
+        mcast_hash: 16;
+        lf_field_list: 32;
+        resubmit_flag: 16;
+        recirculate_flag: 8;
     }
 }
 
 
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
@@ -80,8 +80,8 @@ parser start {
 parser parse_ethernet {
     extract(ethernet);
     return select(latest.etherType) {
-        // ETHERTYPE_IPV4 : parse_ipv4;
-        ETHERTYPE_SHADOW : parse_shadow_tag;
+        // ETHERTYPE_IPV4: parse_ipv4;
+        ETHERTYPE_SHADOW: parse_shadow_tag;
         default: ingress;
     }
 }
@@ -91,7 +91,7 @@ parser parse_shadow_tag {
     extract(shadow_tag);
     return select(latest.etherType){
         // ZEEP NOTE: here is the place to add branch
-        // ETHERTYPE_IPV4 : parse_ipv4;
+        // ETHERTYPE_IPV4: parse_ipv4;
         default: ingress;
     }
 }
@@ -132,7 +132,7 @@ action goto_testing_pipe() {
 /* This table used to mark specific real pkts to shadow pkts*/
 table shadow_traffic_control {
     reads {
-        ethernet.dstAddr : exact;
+        ethernet.dstAddr: exact;
     }
     actions {
         SP4_add_shadow_tag;

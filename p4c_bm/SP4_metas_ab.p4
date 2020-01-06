@@ -13,23 +13,23 @@
 
 header_type shadow_tag_t {
     fields {
-        shadow_id : 16;
-        etherType : 16;
+        shadow_id: 16;
+        etherType: 16;
     }
 }
 
 header_type shadow_metadata_t {
     fields {
-        shadow_bit : 16; // the flag to mark packets status: shadow status
+        shadow_bit: 16; // the flag to mark packets status: shadow status
     }
 }
 
 
 header_type ethernet_t {
     fields {
-        dstAddr : 48;
-        srcAddr : 48;
-        etherType : 16;
+        dstAddr: 48;
+        srcAddr: 48;
+        etherType: 16;
     }
 }
 
@@ -59,8 +59,8 @@ parser start {
 parser parse_ethernet {
     extract(ethernet);
     return select(latest.etherType) {
-        // ETHERTYPE_IPV4 : parse_ipv4;
-        ETHERTYPE_SHADOW : parse_shadow_tag;
+        // ETHERTYPE_IPV4: parse_ipv4;
+        ETHERTYPE_SHADOW: parse_shadow_tag;
         default: ingress;
     }
 }
@@ -69,7 +69,7 @@ parser parse_shadow_tag {
     extract(shadow_tag);
     return select(latest.etherType){
         // ZEEP NOTE: here is the place to add branch
-        // ETHERTYPE_IPV4 : parse_ipv4;
+        // ETHERTYPE_IPV4: parse_ipv4;
         default: ingress;
     }
 }
@@ -110,7 +110,7 @@ action goto_testing_pipe() {
 /* This table used to mark specific real pkts to shadow pkts*/
 table shadow_traffic_control {
     reads {
-        ethernet.dstAddr : exact;
+        ethernet.dstAddr: exact;
     }
     actions {
         SP4_add_shadow_tag;

@@ -10,7 +10,7 @@ For testing operators:
 - A-B testing operator. The traffic for A-B testing is configurable at runtime through flow entry in STC table. 
 - Differential testing operator. Similar with A-B testing, traffic can be split across all versions and the output is compared, as described in the paper.
 
-Besides, we will give a step-by-step guide to show the workflow of P4Visor and how to run real traffic on the it.
+Besides, we will give a step-by-step guide to show the workflow of P4Visor and how to run real traffic on it.
 
 Note this is the preliminary prototype of P4Visor implementation. The code may changes in the future evolution.
 The latest version of P4Visor can be found [https://github.com/Brown-NSG/P4Visor](https://github.com/Brown-NSG/P4Visor).
